@@ -1,3 +1,18 @@
+<?php 
+  include('admin/db.php');
+  if(isset($_POST['submit'])){
+    $name = $_POST['name'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $qu = "INSERT INTO `users`(`name`, `email`, `password`) VALUES ('$name','$email','$password')";
+    $res = mysqli_query($con,$qu);
+    $msg = "";
+    if($res){
+      $msg = "User successfully create";
+    }
+  }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,12 +39,19 @@
   <div class="container login-container">
     <div class="row justify-content-center">
       <div class="col-md-6 col-lg-4">
+        <?php
+            if(isset($msg)){ 
+        ?>
+          <div class="alert alert-success">
+              <?php echo $msg; ?>
+          </div>
+        <?php } ?>            
         <div class="card p-4">
           <h3 class="text-center mb-4">Register</h3>
-          <form>
+          <form method="post">
             <div class="mb-3">
               <label for="email" class="form-label">Name</label>
-              <input type="email" class="form-control" name="name" placeholder="Enter name">
+              <input type="text" class="form-control" name="name" placeholder="Enter name">
             </div>
             <div class="mb-3">
               <label for="email" class="form-label">Email address</label>
@@ -40,10 +62,10 @@
               <input type="password" class="form-control" name="password"  placeholder="Enter password">
             </div>
             <div class="d-grid">
-              <button type="submit" class="btn btn-primary">Login</button>
+              <input type="submit" name="submit" value="submit" class="btn btn-primary"/>
             </div>
           </form>
-          <p class="mt-3 text-center text-muted">Don't have an account? <a href="index.php">Sign up</a></p>
+          <p class="mt-3 text-center text-muted">Already have an account? <a href="index.php">Sign up</a></p>
         </div>
       </div>
     </div>
