@@ -2,6 +2,7 @@
     include('checkUser.php');
     include('../admin/db.php');
 
+    //singel data fetch
     if(isset($_GET['editid'])){
         $editid = $_GET['editid'];
         
@@ -10,6 +11,7 @@
         $single = mysqli_fetch_array($res);
     }
 
+    //task update
     if(isset($_POST['submit'])){
         $userid = $_SESSION['userid'];
         $taskid = $_POST['editid'];
