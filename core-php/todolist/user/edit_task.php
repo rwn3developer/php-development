@@ -12,12 +12,14 @@
 
     if(isset($_POST['submit'])){
         $userid = $_SESSION['userid'];
+        $taskid = $_POST['editid'];
         $task = $_POST['task'];
-        $qu = "INSERT INTO `task`(`taskname`,`user_id`) VALUES ('$task','$userid')";
+        $status = $_POST['status'];
+        $qu = "UPDATE `task` SET `taskname`='$task',`status`='$status',`user_id`='$userid' WHERE `id`='$taskid'";
         $res = mysqli_query($con,$qu);
         $msg = "";
         if($res > 0){
-            $msg = "Task successfully add";
+            $msg = "Task successfully update";
         }
     } 
     include('header.php'); 
@@ -67,6 +69,7 @@
                             </div>
                             <div class="card-body card-block">
                                <form method="post">
+                                <input type="hidden" name="editid" value="<?php echo $single['id'] ?>">
                                     <div class="mb-3">
                                         <label for="exampleInputEmail1" class="form-label">Task</label>
                                         <input type="text" value="<?php echo $single['taskname'] ?>" name="task" placeholder="Enter your task" required class="form-control"> 
@@ -76,9 +79,9 @@
                                         <label for="status" class="form-label">Status</label>
                                         <select class="form-control" name="status" id="status" required>
                                             <option value="">--- Select Status ---</option>
-                                            <option value="pending" <?php if($single['status'] == 0) echo 'selected'; ?>>Pending</option>
-                                            <option value="progress" <?php if($single['status'] == 1) echo 'selected'; ?>>Progress</option>
-                                            <option value="done" <?php if($single['status'] == 2) echo 'selected'; ?>>Done</option>
+                                            <option value="0" <?php if($single['status'] == 0) echo 'selected'; ?>>Pending</option>
+                                            <option value="1" <?php if($single['status'] == 1) echo 'selected'; ?>>Progress</option>
+                                            <option value="2" <?php if($single['status'] == 2) echo 'selected'; ?>>Done</option>
                                         </select>
                                     </div>
 

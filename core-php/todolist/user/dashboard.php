@@ -7,6 +7,13 @@
 <div class="content">
             <!-- Animated -->
             <div class="animated fadeIn">
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <?php include('../userdetail.php'); ?>
+                    </div>
+                </div>
+
                 <!-- Widgets  -->
                 <div class="row">
                     <div class="col-lg-3 col-md-6">
