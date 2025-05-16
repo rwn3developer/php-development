@@ -6,6 +6,8 @@
                         <p class="card-text">Password :- <?php echo $_SESSION['userpassword']; ?></p>
                         <?php if ($_SESSION['role'] == 0) { ?>
                             <p class="card-text">Role :- user</p>
+                        <?php } else{ ?>
+                            <p class="card-text">Role :- admin</p>
                         <?php } ?>
                     </div>
-                </div>      
+</div>      

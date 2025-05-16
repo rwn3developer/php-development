@@ -9,6 +9,11 @@
             <!-- ============================================================== -->
              <div class="page-breadcrumb">
                 <div class="row">
+                    <div class="col-md-12">
+                        <?php include('../userdetail.php'); ?>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
                         <h4 class="page-title">Dashboard</h4>
                         <div class="ml-auto text-right">

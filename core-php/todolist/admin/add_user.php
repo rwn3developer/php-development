@@ -1,13 +1,30 @@
-<?php include('header.php'); ?>
+<?php 
+    include('db.php');
+    if(isset($_POST['submit'])){
+      $name = $_POST['name'];
+      $email = $_POST['email'];
+      $password = $_POST['password'];
+      $qu = "INSERT INTO `users`(`name`, `email`, `password`) VALUES ('$name','$email','$password')";
+      $res = mysqli_query($con,$qu);
+      if($res > 0){
+            $_SESSION['message'] = "User successfully add";
+      }else{
+            $_SESSION['message'] = "User not inserted";
+      }
+    }
+    include('header.php'); 
+?>
 
-<div class="page-wrapper">
+
+
+ <div class="page-wrapper">
             <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
             <!-- ============================================================== -->
             <div class="page-breadcrumb">
                 <div class="row">
                     <div class="col-12 d-flex no-block align-items-center">
-                        <h4 class="page-title">Task Management</h4>
+                        <h4 class="page-title">User Management</h4>
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
@@ -30,34 +47,60 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-12">
+                    <div class="col-md-6">
+                    
+                    <?php
+                        if(isset($_SESSION['message'])){ 
+                    ?>
+                        <div class="alert alert-success">
+                            <?php echo $_SESSION['message']; ?>
+                        </div>
+                    <?php } ?>
+                    
+
                         <div class="card">
-                            <div class="card-body">
-                                <h5 class="card-title m-b-0">Static Table</h5>
-                            </div>
-                            <table class="table">
-                                  <thead>
-                                    <tr>
-                                      <th scope="col">#</th>
-                                      <th scope="col">First</th>
-                                      <th scope="col">Last</th>
-                                      <th scope="col">Handle</th>
-                                    </tr>
-                                  </thead>
-                                  <tbody>
-                                    <tr>
-                                      <th scope="row">1</th>
-                                      <td>Mark</td>
-                                      <td>Otto</td>
-                                      <td>@mdo</td>
-                                    </tr>
-                                  </tbody>
-                            </table>
+                            <form method="post" class="form-horizontal">
+                                <div class="card-body">
+                                    <h4 class="card-title">User Add</h4>
+
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Name</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="name" placeholder="Enter user name" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Email</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="email" placeholder="Enter user email" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Password</label>
+                                        <div class="col-sm-9">
+                                            <input type="text" class="form-control" name="password" placeholder="Enter user password" required>
+                                        </div>
+                                    </div>
+
+                                    
+                                </div>
+                                <div class="border-top">
+                                    <div class="card-body">
+                                        <input type="submit" name="submit" class="btn btn-primary" value="Submit"/>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         
-                        
+                       
+
                     </div>
+                    
                 </div>
+                <!-- editor -->
+               
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
@@ -69,6 +112,7 @@
                 <!-- End Right sidebar -->
                 <!-- ============================================================== -->
             </div>
+            <?php unset($_SESSION['message']); ?>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
@@ -83,5 +127,5 @@
             <!-- ============================================================== -->
         </div>
 
-<?php include('footer.php'); ?>
 
+<?php include('footer.php'); ?>
