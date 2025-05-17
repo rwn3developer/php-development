@@ -37,7 +37,6 @@
              $_SESSION['message'] = "role not successfully change";
         }
     }
-
     include('header.php'); 
 ?>
 
@@ -70,7 +69,9 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="row">
+
+                <!-- Table formate -->
+                <!-- <div class="row">
                     <div class="col-12">
                         <?php 
                             if(isset($_SESSION['message'])){
@@ -145,7 +146,64 @@
                         
                         
                     </div>
-                </div>
+                </div> -->
+
+                <!-- card view -->
+                 <div class="row">
+                        <?php 
+                            $qu = "SELECT * FROM `users`";
+                            $res = mysqli_query($con,$qu);
+                            while($row = mysqli_fetch_array($res)) {
+
+                        ?>
+                                                        
+                            <div class="col-md-3">
+                                <div class="card">
+                                <h5 class="card-header">Name :- <?php echo $row['name']; ?></h5>
+                                <div class="card-body">
+                                    <p class="card-text">Email :- <?php echo $row['email']; ?></p>
+                                        <?php if($row['role']==1) { ?>
+                                            <p style="color:green" class="card-text">Role :- admin</p>
+                                        <?php } else { ?>
+                                            <p style="color:brown" class="card-text">Role :- user</p>
+                                        <?php } ?>
+
+                                        <form method="post">
+                                            <div class="d-flex justify-content-between">
+                                                    <input type="hidden" name="role_edit_id" value="<?php echo $row['id']; ?>">
+                                                <select class="form-control w-75" name="change_role">
+                                                    <option value="">---select role---</option>
+                                                    <option <?php if($row['role']==1) echo "selected"; ?> value="1">admin</option>
+                                                    <option <?php if($row['role']==0) echo "selected"; ?> value="0">user</option>
+                                                </select>
+                                                <input type="submit" name="update_role" class="btn btn-success btn-sm"/>
+                                            </div>
+                                        </form><br>
+
+                                        <?php if($row['status']==1) { ?>
+                                                <p style="color:green" class="card-text">Status :- active</p>
+                                        <?php } else { ?>
+                                                <p style="color:brown" class="card-text">Role :- deactive</p>
+                                        <?php } ?>
+
+                                        <form method="post">
+                                             <div class="d-flex justify-content-between">
+                                                    <select class="form-control">
+                                                        <option>---select role---</option>
+                                                        <option>admin</option>
+                                                        <option>user</option>
+
+                                                </select>
+                                            </div>
+                                        </form><br>
+                                    <a href="#" class="btn btn-primary">Mode Details</a>
+                                </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    
+                 </div>
+
                 <!-- ============================================================== -->
                 <!-- End PAge Content -->
                 <!-- ============================================================== -->
