@@ -5,19 +5,21 @@
     if(isset($_GET['userid'])){
         $userid = $_GET['userid'];
         $qu = "
-                SELECT 
-                    
-                    users.name,
-                    users.email,
-                    users.role,
-                    users.status AS user_status,
-                    task.status AS task_status
-                FROM 
-                    users
-                LEFT JOIN
-                    task ON users.id = task.user_id
-
-            ";
+            SELECT 
+                users.name,
+                users.email,
+                users.role,
+                users.status AS user_status,
+                task.taskname,
+                task.status AS task_status
+            FROM 
+                users
+            LEFT JOIN
+                task ON users.id = task.user_id
+            WHERE 
+                users.id = $userid
+        ";
+        $res = mysqli_query($con,$qu);
     }
 
     include('header.php'); 
