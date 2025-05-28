@@ -1,14 +1,12 @@
 <?php
     session_start();
     require('connection.inc.php');
-    require('function.inc.php');
+    // require('function.inc.php');
 
-    if($_SESSION['ADMMIN_LOGIN'] && $_SESSION['ADMMIN_LOGIN'] != ''){
-        
-    }else{
-        header('location:login.php');
+   if (!isset($_SESSION['ADMMIN_LOGIN']) || $_SESSION['ADMMIN_LOGIN'] == '') {
+        header('Location: login.php');
+        die();
     }
-
 ?>
 
 <!doctype html>
