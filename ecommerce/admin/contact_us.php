@@ -45,11 +45,6 @@
                                             <td><?php echo $row['mobile']; ?></td>
                                             <td><?php echo $row['comment']; ?></td>
                                             <td><?php echo $row['added_on']; ?></td>
-
-
-                                           
-
-                                            
                                         </tr>
                                     <?php } ?>
                                 </tbody>
