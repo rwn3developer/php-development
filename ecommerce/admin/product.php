@@ -13,18 +13,16 @@
             }else{
                 $status=1;
             }
-            $sql = "UPDATE `categories` SET `status`='$status' WHERE `id`='$id'";
+            $sql = "UPDATE `product` SET `status`='$status' WHERE `id`='$id'";
             $res = mysqli_query($con,$sql);
         }
 
         if($type=="delete"){
             $id = $_GET['id'];
-            $sql = "DELETE FROM `categories` WHERE `id`='$id'";
+            $sql = "DELETE FROM `product` WHERE `id`='$id'";
             $res = mysqli_query($con,$sql);
         }
     }
-
-    
     
 ?>
 
@@ -36,8 +34,9 @@
                     <div class="col-lg-12 col-md-12 col-sm-12">
                         <div class="card">
                             <div class="card-header">
-                                <strong class="card-title">Manage Product</strong>
-                                <span class="ml-5"><a href="add_product.php" class="btn btn-primary btn-sm">Add Product</a></span>
+                                <strong class="card-title">Manage product</strong>
+                                <span class="ml-5"><a href="add_product.php" class="btn btn-primary btn-sm">Add product</a></span>
+                                
                             </div>
                             <div class="card-body">
                                 <table class="table">
@@ -51,25 +50,50 @@
                                           <th scope="col">Mrp</th>
                                           <th scope="col">Price</th>
                                           <th scope="col">Qty</th>
+                                          <th scope="col">Status</th>
+                                          <th scope="col">Action</th>
                                       </tr>
                                   </thead>
                                   <tbody>
-                                        <?php
-                                            $i=1;
-                                            $sql = "SELECT * FROM `products` ORDER BY name DESC"; 
-                                            $res = mysqli_query($con,$sql);
-                                            while($row = mysqli_fetch_array($res)){
-                                        ?>
-                                            <tr>
-                                                <td><?php echo $i++;  ?></td>
-                                            </tr>
+                                    <?php
+                                    $i=1;
+                                        $sql = "SELECT * FROM `product`";
+                                        $res = mysqli_query($con,$sql); 
+                                        while($row = mysqli_fetch_array($res)) {
+                                    ?>
+                                        <tr>
+                                            <td scope="row"><?php echo $i; ?></td>
+                                            <td><?php echo $row['id'] ?></td>
+                                            <td><?php echo $row['categories_id'] ?></td>
+                                            <td><?php echo $row['name'] ?></td>
+                                            <td><?php echo $row['image'] ?></td>
+                                            <td><?php echo $row['mrp'] ?></td>
+                                            <td><?php echo $row['price'] ?></td>
+                                            <td><?php echo $row['qty'] ?></td>
 
-                                        <?php } ?>
-                                  </tbody>
+
+                                            <td>
+                                                <?php
+                                                    if($row['status']==1){
+                                                        echo "<a href='?type=status&operation=active&id=".$row['id']."' class='btn btn-info btn-sm'>Active</a>";
+                                                    }else{
+                                                        echo "<a href='?type=status&operation=deactive&id=".$row['id']."' class='btn btn-warning btn-sm'>Deactive</a>";
+                                                    }
+                                                 ?>
+                                            </td>
+                                            <td>
+                                                <a href="?type=delete&id=<?php echo $row['id'] ?>" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+
+                                                 <a href="add_product.php?id=<?php echo $row['id'] ?>" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                            </td>
+                                        </tr>
+                                    <?php $i++; } ?>
+                                    
+                                </tbody>
                             </table>
                         </div>
                     </div>
-                </div>
+                </div> 
             </div>
         </div>
     </div><!-- .animated -->
